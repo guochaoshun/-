@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "GCSDictionary.h"
+#import "GCSThreadDictionary.h"
 
 @interface ViewController ()
 
@@ -18,17 +19,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
-//    [self multiThreadTest];
+    
     [self oneThreadTest];
 
+//    [self multiThreadTest];
 
 }
 
 // 多线程测试用例
 - (void)multiThreadTest {
     
-    GCSDictionary * dic = [[GCSDictionary alloc] init];
+    GCSThreadDictionary * dic = [[GCSThreadDictionary alloc] init];
     
     // 增加,触发扩容
     for (int i = 0; i<20; i++) {
@@ -54,6 +55,8 @@
 
     });
 }
+
+
 
 // 单线程的测试用例
 - (void)oneThreadTest {

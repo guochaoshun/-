@@ -18,6 +18,7 @@
 		001102F9244D8E0800BBEBA5 /* _____UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 001102F8244D8E0800BBEBA5 /* _____UITests.m */; };
 		00110308244D8E2C00BBEBA5 /* GCSDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 00110307244D8E2C00BBEBA5 /* GCSDictionary.m */; };
 		0011030B244D8E3500BBEBA5 /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 0011030A244D8E3500BBEBA5 /* Node.m */; };
+		0052E64A245026AC00574333 /* GCSThreadDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 0052E649245026AC00574333 /* GCSThreadDictionary.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		00110307244D8E2C00BBEBA5 /* GCSDictionary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCSDictionary.m; sourceTree = "<group>"; };
 		00110309244D8E3500BBEBA5 /* Node.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
 		0011030A244D8E3500BBEBA5 /* Node.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
+		0052E648245026AC00574333 /* GCSThreadDictionary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCSThreadDictionary.h; sourceTree = "<group>"; };
+		0052E649245026AC00574333 /* GCSThreadDictionary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCSThreadDictionary.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,8 @@
 				001102D8244D8E0400BBEBA5 /* ViewController.m */,
 				00110306244D8E2C00BBEBA5 /* GCSDictionary.h */,
 				00110307244D8E2C00BBEBA5 /* GCSDictionary.m */,
+				0052E648245026AC00574333 /* GCSThreadDictionary.h */,
+				0052E649245026AC00574333 /* GCSThreadDictionary.m */,
 				00110309244D8E3500BBEBA5 /* Node.h */,
 				0011030A244D8E3500BBEBA5 /* Node.m */,
 				001102DA244D8E0400BBEBA5 /* Main.storyboard */,
@@ -277,6 +282,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0052E64A245026AC00574333 /* GCSThreadDictionary.m in Sources */,
 				001102D9244D8E0400BBEBA5 /* ViewController.m in Sources */,
 				001102D3244D8E0400BBEBA5 /* AppDelegate.m in Sources */,
 				001102E4244D8E0800BBEBA5 /* main.m in Sources */,
