@@ -18,10 +18,50 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+
+//    [self multiThreadTest];
+    [self oneThreadTest];
+
+
+}
+
+// 多线程测试用例
+- (void)multiThreadTest {
+    
     GCSDictionary * dic = [[GCSDictionary alloc] init];
     
     // 增加,触发扩容
-    for (int i = 0; i<200; i++) {
+    for (int i = 0; i<20; i++) {
+        
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSString * key = [NSString stringWithFormat:@"%@",@(i)];
+            [dic gcs_setObject:key forKey:key];
+        });
+        
+    }
+    
+    for (int i = 0; i<20; i++) {
+        
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSString * key = [NSString stringWithFormat:@"%@",@(i)];
+            [dic gcs_setObject:@"111" forKey:key];
+        });
+        
+    }
+    NSLog(@"%@",dic);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSLog(@"%@",dic);
+
+    });
+}
+
+// 单线程的测试用例
+- (void)oneThreadTest {
+    
+    GCSDictionary * dic = [[GCSDictionary alloc] init];
+    
+    // 增加,触发扩容
+    for (int i = 0; i<20; i++) {
         NSString * key = [NSString stringWithFormat:@"%@",@(i)];
         [dic gcs_setObject:key forKey:key];
     }
@@ -51,8 +91,11 @@
     }
     
     NSLog(@"%@",dic);
-
+    
+    
 }
+
+
 
 
 @end

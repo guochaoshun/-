@@ -37,6 +37,7 @@ typedef struct NodeInfo NodeInfo;
         self.dataArray = [[NSPointerArray alloc] initWithOptions:NSPointerFunctionsStrongMemory];
         // 会把前面的都初始化为nil
         self.dataArray.count = self.totleCount;
+
     }
     return self;
 }
@@ -57,6 +58,7 @@ typedef struct NodeInfo NodeInfo;
     // 更新值
     if (info.node) {
         info.node.value = anObject;
+        
         return;
     }
     // 插入一个新值
@@ -67,10 +69,10 @@ typedef struct NodeInfo NodeInfo;
     newNode.nextNode = currentNode;
     self.currentCount ++;
     [self.dataArray replacePointerAtIndex:info.index withPointer:(__bridge void * _Nullable)(newNode)];
+
     if (self.currentCount >= self.totleCount*3/4) {
         [self rebuildGCSDictionary];
     }
-    
     
 }
 /// 对外使用,根据key查找值
@@ -89,7 +91,7 @@ typedef struct NodeInfo NodeInfo;
         NSLog(@"%@ 不存在对应的value",aKey);
         return;
     }
-    
+
     Node * preNode = [self.dataArray pointerAtIndex:info.index];
     // 如果要移除的是第一个node,那dataArray就替换成nextNode即可
     // 如果移除的是中间的node,dataArray把前一个的nextNode指向移除node的nextNode
@@ -98,6 +100,7 @@ typedef struct NodeInfo NodeInfo;
     if ([preNode isEqual:info.node]) {
         self.currentCount --;
         [self.dataArray replacePointerAtIndex:info.index withPointer:(__bridge void * _Nullable)(info.node.nextNode)];
+
         if (self.currentCount <= self.totleCount/4) {
             [self rebuildGCSDictionary];
         }
@@ -108,6 +111,7 @@ typedef struct NodeInfo NodeInfo;
         if ([preNode.nextNode isEqual:info.node]) {
             self.currentCount --;
             preNode.nextNode = info.node.nextNode;
+
             if (self.currentCount <= self.totleCount/4) {
                 [self rebuildGCSDictionary];
             }
@@ -141,19 +145,19 @@ typedef struct NodeInfo NodeInfo;
 // 内部使用,根据key获取到对应的下标,
 - (NSUInteger)getIndexWithKey:(NSString *)key {
     // 方式1,使用系统的hash算法
-//    NSUInteger hash = [key hash];
-//    NSUInteger index = hash % self.totleCount;
-//    return index;
-    
-    // 方式2,使用自定义的hash算法,取出每个字符,然后平方相加,取余即可
-    NSUInteger hash = 0;
-    const char * charArray = [key UTF8String];
-    for (int i = 0; charArray[i] != '\0'; i++) {
-        char oneChar = charArray[i];
-        hash += oneChar * oneChar;
-    }
+    NSUInteger hash = [key hash];
     NSUInteger index = hash % self.totleCount;
     return index;
+    
+    // 方式2,使用自定义的hash算法,取出每个字符,然后平方相加,取余即可
+//    NSUInteger hash = 0;
+//    const char * charArray = [key UTF8String];
+//    for (int i = 0; charArray[i] != '\0'; i++) {
+//        char oneChar = charArray[i];
+//        hash += oneChar * oneChar;
+//    }
+//    NSUInteger index = hash % self.totleCount;
+//    return index;
     
 }
 
