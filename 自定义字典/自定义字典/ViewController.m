@@ -21,7 +21,7 @@
     GCSDictionary * dic = [[GCSDictionary alloc] init];
     
     // 增加,触发扩容
-    for (int i = 0; i<20; i++) {
+    for (int i = 0; i<200; i++) {
         NSString * key = [NSString stringWithFormat:@"%@",@(i)];
         [dic gcs_setObject:key forKey:key];
     }

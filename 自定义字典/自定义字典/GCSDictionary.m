@@ -86,7 +86,7 @@ typedef struct NodeInfo NodeInfo;
     }
     NodeInfo info = [self getNodeInfoWithKey:aKey];
     if (info.node == nil) {
-        NSLog(@"此%@节点不存在对应的value",aKey);
+        NSLog(@"%@ 不存在对应的value",aKey);
         return;
     }
     
@@ -132,7 +132,7 @@ typedef struct NodeInfo NodeInfo;
         }
         currentNode = currentNode.nextNode;
     }
-    
+    // resultNode可能为nil
     info.node = resultNode;
     info.index = index;
     return info;
@@ -141,10 +141,19 @@ typedef struct NodeInfo NodeInfo;
 // 内部使用,根据key获取到对应的下标,
 - (NSUInteger)getIndexWithKey:(NSString *)key {
     // 方式1,使用系统的hash算法
-    NSUInteger hash = [key hash];
+//    NSUInteger hash = [key hash];
+//    NSUInteger index = hash % self.totleCount;
+//    return index;
+    
+    // 方式2,使用自定义的hash算法,取出每个字符,然后平方相加,取余即可
+    NSUInteger hash = 0;
+    const char * charArray = [key UTF8String];
+    for (int i = 0; charArray[i] != '\0'; i++) {
+        char oneChar = charArray[i];
+        hash += oneChar * oneChar;
+    }
     NSUInteger index = hash % self.totleCount;
     return index;
-    
     
 }
 
@@ -175,8 +184,6 @@ typedef struct NodeInfo NodeInfo;
     }
     
     
-    
-    
 }
 
 
@@ -192,14 +199,18 @@ typedef struct NodeInfo NodeInfo;
         
     }
     
-    return [NSString stringWithFormat:@"%@ %@",@(dic.count),dic];
+    return [NSString stringWithFormat:@"%@ %@ %@",@(self.currentCount),@(dic.count),dic];
 }
 
 - (NSString *)dataArrayDescription {
     
+    return [self pointArrayDescription:self.dataArray];
+}
+
+- (NSString *)pointArrayDescription:(NSPointerArray *)pointArray {
     NSMutableString * str = [NSMutableString string];
-    for (int i = 0 ; i<self.dataArray.count; i++) {
-        Node * currentNode = [self.dataArray pointerAtIndex:i];
+    for (int i = 0 ; i<pointArray.count; i++) {
+        Node * currentNode = [pointArray pointerAtIndex:i];
         [str appendFormat:@"%@ %@\n",@(i),currentNode];
     }
     return str;
