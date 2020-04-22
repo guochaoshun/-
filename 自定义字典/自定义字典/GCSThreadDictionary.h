@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-/// 利用读写锁,实现一下多线程字典
+/// 利用读写锁,实现一下多线程字典,使用过程中存在死锁,还需要修改
 @interface GCSThreadDictionary : NSObject
 
 /// 实现增删改查
